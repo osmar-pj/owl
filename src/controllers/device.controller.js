@@ -57,7 +57,6 @@ export const deleteDeviceById = async (req, res) => {
 
 export const wifiCredentials = async (req, res) => {
     try {
-        console.log(req.body)
         const { ssid, password, mac } = req.body
         mqttClient.sendMessage(mac, JSON.stringify({ ssid, password, mode: "wifi" }))
         res.status(200).json({})

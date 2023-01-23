@@ -5,10 +5,12 @@ import jwt from 'jsonwebtoken'
 
 export const signup = async (req, res) => {
     try {
-        const { username, email, password, roles } = req.body
+        console.log(req.body)
+        const { name, lastname, email, password, roles } = req.body
 
         const newUser = new User({
-            username,
+            name,
+            lastname,
             email,
             password: await User.encryptPassword(password)
         })

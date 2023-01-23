@@ -33,13 +33,16 @@ class mqttHandler {
                     // Revisar si MAC esta registrado y a que usuario pertenece
                     const mac = data.owl.mac
                     const device = await Device.findOne({mac: mac})
-                    if (device) { 
+                    if (device) {
                         for (let i = 0; i < data.owl.s.length; i++) {
                             device.s[i] = {...device.s[i], ...data.owl.s[i]}
                         }
-                        socket.io.emit('deviceData', device)
                         // actualizar la lista de Device
                         await Device.findByIdAndUpdate(device._id, device)
+                        // guardar dato en base de datos
+                        console.log(device)
+                        // enviar datos al front
+                        socket.io.emit('deviceData', device)
                     }
                     else {
                         // DISPOSITIVO CONFIGURADO Y FALTA PONER EN PRODUCCION

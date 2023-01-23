@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import timezone from 'mongoose-timezone'
 
 const deviceSchema = new Schema(
     {
@@ -15,8 +16,10 @@ const deviceSchema = new Schema(
         }
     },
     {
+        timestamps: true,
         versionKey: false
     }
 )
 
+deviceSchema.plugin(timezone)
 export default model('Device', deviceSchema)

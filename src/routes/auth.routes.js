@@ -2,7 +2,7 @@ import { Router } from 'express';
 const router = Router()
 
 import * as authCtrl from '../controllers/auth.controller'
-import { verifySignup } from '../middlewares'
+import { verifySignup, authJwt } from '../middlewares'
 
 router.use((req, res, next) => {
     res.header(
@@ -14,7 +14,7 @@ router.use((req, res, next) => {
 
 router.post(
     '/signup',
-    [verifySignup.checkDuplicateUsernameOrEmail, verifySignup.checkRolesExisted],
+    [verifySignup.checkDuplicateUsernameOrEmail, verifySignup.checkRolesExisted, authJwt.isAdmin],
     authCtrl.signup
 )
 
